@@ -73,10 +73,14 @@ paths:
                   items:
                     type: string
       responses:
-        '200':
-          description: PDF gerado com sucesso
-          content:
-            application/pdf:
-              schema:
-                type: string
-                format: binary
+      "200":
+        description: PDF gerado com sucesso
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                url:
+                  type: string
