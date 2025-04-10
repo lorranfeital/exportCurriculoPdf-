@@ -1,17 +1,17 @@
 openapi: 3.1.0
 info:
-  title: Currículo PDF Generator API
-  description: API para gerar um currículo em PDF com base em um modelo HTML com Handlebars.
+  title: Currículo PDF API
+  description: API que gera um currículo em PDF a partir dos dados fornecidos.
   version: 1.0.0
 servers:
   - url: https://curriculo-pdf-api.onrender.com
-    description: Servidor principal (Render)
+    description: Servidor principal da API
+
 paths:
   /export/canvas-pdf:
     post:
-      operationId: exportCurriculoPdf
-      summary: Exporta currículo como PDF
-      description: Gera e retorna um PDF com os dados do currículo preenchidos em um template HTML.
+      operationId: exportarCurriculoPdf
+      summary: Gera um currículo em PDF a partir de um template
       requestBody:
         required: true
         content:
@@ -21,27 +21,21 @@ paths:
               properties:
                 fullName:
                   type: string
-                  description: Nome completo do candidato
                 desiredTitle:
                   type: string
-                  description: Cargo ou título profissional desejado
                 contact:
                   type: object
                   properties:
                     email:
                       type: string
-                      format: email
                     phone:
                       type: string
                     linkedin:
                       type: string
-                      format: uri
                 summary:
                   type: string
-                  description: Resumo profissional
                 experience:
                   type: array
-                  description: Lista de experiências profissionais
                   items:
                     type: object
                     properties:
@@ -59,7 +53,6 @@ paths:
                           type: string
                 education:
                   type: array
-                  description: Lista de formações acadêmicas
                   items:
                     type: object
                     properties:
@@ -79,13 +72,6 @@ paths:
                   type: array
                   items:
                     type: string
-              required:
-                - fullName
-                - desiredTitle
-                - contact
-                - summary
-                - experience
-                - education
       responses:
         '200':
           description: PDF gerado com sucesso
@@ -94,7 +80,3 @@ paths:
               schema:
                 type: string
                 format: binary
-        '400':
-          description: Requisição inválida (dados ausentes ou mal formatados)
-        '500':
-          description: Erro interno ao gerar o PDF
