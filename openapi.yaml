@@ -1,17 +1,17 @@
 openapi: 3.1.0
 info:
   title: Currículo PDF API
-  description: API que gera um currículo em PDF a partir dos dados fornecidos.
+  description: API para geração de currículo em PDF a partir de dados estruturados.
   version: 1.0.0
 servers:
   - url: https://curriculo-pdf-api.onrender.com
-    description: Servidor principal da API
-
+    description: Servidor principal de geração de currículo PDF
 paths:
   /export/canvas-pdf:
     post:
-      operationId: exportarCurriculoPdf
-      summary: Gera um currículo em PDF a partir de um template
+      operationId: exportCanvasPdf
+      summary: Gera um currículo em PDF
+      description: Recebe dados de currículo e retorna um arquivo PDF gerado com base em um template canvas.
       requestBody:
         required: true
         content:
@@ -28,10 +28,12 @@ paths:
                   properties:
                     email:
                       type: string
+                      format: email
                     phone:
                       type: string
                     linkedin:
                       type: string
+                      format: uri
                 summary:
                   type: string
                 experience:
@@ -73,14 +75,14 @@ paths:
                   items:
                     type: string
       responses:
-        "200":
-          description: PDF gerado com sucesso
+        '200':
+          description: PDF gerado com sucesso.
           content:
-            application/json:
+            application/pdf:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                  url:
-                    type: string
+                type: string
+                format: binary
+        '400':
+          description: Requisição malformada ou dados incompletos.
+        '500':
+          description: Erro interno ao gerar o PDF.
