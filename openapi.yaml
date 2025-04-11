@@ -4,7 +4,7 @@ info:
   description: API para geração de currículo em PDF a partir de dados estruturados.
   version: 1.0.0
 servers:
-  - url: https://curriculo-pdf-api.onrender.com
+  - url: https://curriculo-pdf-api-production.up.railway.app
     description: Servidor principal de geração de currículo PDF
 paths:
   /export/canvas-pdf:
